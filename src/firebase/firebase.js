@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/analytics'
+import 'firebase/storage'
 
 // Firebase init - project configuration
 const firebaseConfig = {
@@ -21,3 +22,20 @@ firebase.initializeApp(firebaseConfig)
 const db = firebase.firestore()
 const auth = firebase.auth()
 const analytics = firebase.analytics();
+const storage = firebase.storage()
+
+//Cloud storage References
+const storageRef = storage.ref()
+const imagesRef = storageRef.child('images')
+const videosRef = storageRef.child('videos')
+const avatarsRef = storageRef.child('avatars')
+
+export {
+  db,
+  analytics,
+  storage,
+  storageRef,
+  imagesRef,
+  videosRef,
+  avatarsRef
+}

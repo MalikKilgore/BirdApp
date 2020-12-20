@@ -7,8 +7,11 @@
       ></v-avatar>
 
       <v-tabs centered class="ml-n9" color="grey darken-1">
-        <v-tab v-for="link in links" :key="link">
-          <router-link to="/">{{ link }}</router-link>
+        <v-tab to="/">
+          Home
+        </v-tab>
+        <v-tab to="/profile">
+         Profile
         </v-tab>
       </v-tabs>
       <v-avatar
@@ -22,12 +25,13 @@
         <v-row>
           <v-col cols="12" sm="2">
             <v-sheet rounded="lg" min-height="268">
-              <!--  -->
+              <!-- USER PROFILE DISPLAYED HERE -->
             </v-sheet>
           </v-col>
           <v-col cols="12" sm="8">
             <v-sheet min-height="70vh" rounded="lg">
-              <!--  -->
+              <!-- TWEETS (Cards) LOAD HERE -->
+              <router-view />
             </v-sheet>
           </v-col>
           <v-col cols="12" sm="2">
@@ -46,7 +50,10 @@ import router from './router'
 
 export default {
   data: () => ({
-    links: ["Timeline", "Profile"],
+
   }),
 };
 </script>
+<style scoped lang="scss">
+
+</style>
