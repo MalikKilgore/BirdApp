@@ -20,6 +20,7 @@ firebase.initializeApp(firebaseConfig)
 
 // Utils
 const db = firebase.firestore()
+const tweetStore = db.collection('tweets')
 const auth = firebase.auth()
 const analytics = firebase.analytics();
 const storage = firebase.storage()
@@ -32,6 +33,7 @@ const avatarsRef = storageRef.child('avatars')
 
 export {
   db,
+  tweetStore,
   analytics,
   storage,
   storageRef,
