@@ -28,7 +28,7 @@
           align="center"
           justify="end"
         >
-          <v-icon class="mr-1">
+          <v-icon class="mr-1" @click="leaveALike">
             mdi-heart
           </v-icon>
           <span class="subheading mr-2">{{likes}}</span>
@@ -36,7 +36,7 @@
           <v-icon class="mr-1">
             mdi-share-variant
           </v-icon>
-          <span class="subheading">45</span>
+          <span class="subheading">{{retweets}}</span>
         </v-row>
       </v-list-item>
     </v-card-actions>
@@ -51,13 +51,16 @@ videosRef, avatarsRef} from '../firebase/firebase'
 
 export default {
   name: "Tweet",
-  props: ['content','likes','media','user'],
+  props: ['content','likes','media','user', 'retweets'],
   data: () => ({
 
   }),
-  //Need logic for gathering document data and displaying it in this template (use v-card)
+  
   methods: {
-
+    leaveALike(){
+      this.likes++
+      //UPDATE IN FIREBASE TOO
+    },
   },
 };
 </script>

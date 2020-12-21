@@ -45,11 +45,12 @@ export default {
                 propsData: {
                   content: change.doc.data().content,
                   likes: change.doc.data().likes,
+                  retweets: change.doc.data().retweets,
                   media: change.doc.data().media,
                   user: change.doc.data().user 
                 }
               })
-            tweetInstance.$slots.default = ['yeah so what', 7, 'no media', 'Malik :D']
+            // tweetInstance.$slots.default = ['yeah so what', 7, 'no media', 'Malik :D']
             tweetInstance.$mount();
             home2.appendChild(tweetInstance.$el)
 
@@ -70,7 +71,5 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-#home{
-  overflow-y: scroll;
-}
+
 </style>
