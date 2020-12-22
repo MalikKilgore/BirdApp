@@ -27,17 +27,11 @@ const storage = firebase.storage()
 
 //Cloud storage References
 const storageRef = storage.ref()
-const imagesRef = storageRef.child('images')
-const videosRef = storageRef.child('videos')
-const avatarsRef = storageRef.child('avatars')
 
 export {
   db,
   tweetStore,
   analytics,
   storage,
-  storageRef,
-  imagesRef,
-  videosRef,
-  avatarsRef
+  storageRef
 }

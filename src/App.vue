@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <!-- Overlay for creating tweets-->
     <v-overlay :absolute="absolute" :value="overlay">
-      <v-form @submit.prevent method="POST" ref="form">
+      <v-form @submit.prevent method="post" ref="form">
         <v-text-field
           v-model="user"
           :counter="10"
@@ -52,39 +52,51 @@
       <v-container>
         <v-row>
           <v-col cols="12" sm="2">
-            <v-sheet rounded="lg" min-height="268">
+            <v-sheet id="leftColumn" rounded="lg" min-height="268">
               <!-- USER PROFILE DISPLAYED HERE -->
+              <v-btn
+                class="newTweet"
+                elevation="3"
+                fab
+                rounded
+                @click="toggleOverlay"
+                >Tweet</v-btn
+              >
             </v-sheet>
           </v-col>
-          <v-col id="timelineCol" cols="12" sm="8">
-            <v-sheet min-height="70vh" rounded="lg">
+          <v-col cols="12" sm="8">
+            <v-sheet
+              id="timelineCol"
+              min-height="70vh"
+              rounded="lg"
+              max-height="400"
+            >
               <!-- TWEETS (Cards) LOAD HERE -->
               <router-view />
             </v-sheet>
           </v-col>
           <v-col cols="12" sm="2">
-            <v-sheet rounded="lg" min-height="268">
+            <v-sheet id="rightColumn" rounded="lg" min-height="268">
               <!--  -->
+              <v-btn
+                class="newTweet"
+                elevation="3"
+                fab
+                rounded
+                @click="toggleOverlay"
+                >Tweet</v-btn
+              >
             </v-sheet>
           </v-col>
         </v-row>
       </v-container>
-      <v-btn elevation="3" fab rounded @click="toggleOverlay">Tweet</v-btn>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import router from "./router";
-import {
-  db,
-  tweetStore,
-  storage,
-  storageRef,
-  imagesRef,
-  videosRef,
-  avatarsRef,
-} from "./firebase/firebase";
+import { db, tweetStore, storage, storageRef } from "./firebase/firebase";
 
 export default {
   data: () => ({
@@ -93,6 +105,7 @@ export default {
     user: "",
     content: "",
     media: null,
+    downloadURL: "",
   }),
   methods: {
     toggleOverlay() {
@@ -105,22 +118,41 @@ export default {
           break;
       }
     },
-    uploadMedia() {},
-    sendTweet() {
-      tweetStore.doc().set({
-        createdOn: new Date(),
-        content: this.content,
-        user: this.user,
-        media: this.media,
-        likes: Math.floor(Math.random() * 2340),
-        retweets: Math.floor(Math.random() * 860)
-      })
+    async uploadMedia() {
+      const file = storageRef.child(`files/${this.media.name}`);
+      await file.put(this.media);
+    },
+    async sendTweet() {
+      if (this.media != null) {
+        await this.uploadMedia();
+        const file = storageRef.child(`files/${this.media.name}`);
+        const dlURL = await file.getDownloadURL();
+
+        tweetStore.doc().set({
+          createdOn: new Date(),
+          content: this.content,
+          user: this.user,
+          media: dlURL,
+          likes: Math.floor(Math.random() * 2340),
+          retweets: Math.floor(Math.random() * 860),
+        });
+      } else {
+        tweetStore.doc().set({
+          createdOn: new Date(),
+          content: this.content,
+          user: this.user,
+          media: null,
+          likes: Math.floor(Math.random() * 2340),
+          retweets: Math.floor(Math.random() * 860),
+        });
+      }
     },
   },
 };
 </script>
 <style scoped lang="scss">
 #timelineCol {
-  overflow-y: scroll;
+}
+#leftColumn {
 }
 </style>
