@@ -47,7 +47,6 @@ export default {
                   user: change.doc.data().user,
                 },
               });
-              // tweetInstance.$slots.default = ['yeah so what', 7, 'no media', 'Malik :D']
               tweetInstance.$mount();
               home2.appendChild(tweetInstance.$el);
             }

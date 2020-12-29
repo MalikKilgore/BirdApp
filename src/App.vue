@@ -1,5 +1,5 @@
 <template>
-  <v-app :style="{background: $vuetify.theme.themes[theme].background}" id="main">
+  <v-app id="main">
     <!-- Overlay for creating tweets -->
     <v-overlay :absolute="absolute" :value="overlay">
       <v-card>
@@ -68,17 +68,16 @@
                     <v-tabs centered class="ml-n9" color="grey darken-1">
                       <v-tab to="/profile"> Profile </v-tab>
                     </v-tabs> -->
-
-                    <v-btn
+                    
+                    <!-- <v-btn
                       elevation="2"
                       outlined
                       rounded
                       x-large
                       @click="toggleTheme"
                       >Theme</v-btn
-                    >
+                    > -->
                     <v-btn
-                      class="newTweet"
                       elevation="2"
                       outlined
                       rounded
@@ -109,16 +108,19 @@
             </v-sheet>
           </v-col>
           -->
+
         </v-row>
       </v-container>
     </v-main>
+
   </v-app>
 </template>
 
 <script>
 import router from "./router";
-import Vuetify from "vuetify/lib/framework";
+//import Vuetify from "vuetify/lib/framework";
 import colors from "vuetify/lib/util/colors";
+import Vuetify from './plugins/vuetify'
 import { db, tweetStore, storage, storageRef } from "./firebase/firebase";
 
 export default {
@@ -199,5 +201,13 @@ export default {
 .theme--dark.v-application {
   background: #121212;
   color: #ffffff;
+}
+.fixedBtns {
+  z-index: 6;
+  margin-bottom: 0;
+  bottom: 16px;
+  right: -80rem;
+  position: fixed;
+  width: 2rem;
 }
 </style>
