@@ -3,15 +3,16 @@
     id="home"
     ref="home"
     height="100vh"
-    item-height="fit-content"
+    item-height="max-content"
   >
   </v-virtual-scroll>
 </template>
 
 <script>
-// @ is an alias to /src
 import Vue from "vue";
 import Tweet from "@/components/Tweet.vue";
+import Vuetify from "vuetify/lib/framework";
+import colors from "vuetify/lib/util/colors";
 import { db, tweetStore, storage, storageRef } from "../firebase/firebase";
 
 export default {
@@ -60,11 +61,11 @@ export default {
         });
     },
   },
+
   mounted() {
     this.renderTweets();
   },
 };
 </script>
 <style scoped lang="scss">
-
 </style>
